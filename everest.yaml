@@ -1,0 +1,8 @@
+- Name: CelesteRepl
+  Version: 1.0.0
+  DLL: bin/CelesteRepl.dll
+  Dependencies:
+    - Name: EverestCore
+      Version: 1.5285.0
+    - Name: MappingUtils
+      Version: 1.9.0
