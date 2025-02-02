@@ -187,6 +187,9 @@ public partial class CSharpRepl : Tab
             // Logging
             public static void Log(string output)
                 => Instance.LogOutput(output, SuccessState);
+                
+            public static void Log(object output)
+                => Instance.LogOutput(output?.ToString() ?? "null", SuccessState);
             
             public static void Log(Exception output)
                 => Instance.LogOutput(output, SuccessState);
