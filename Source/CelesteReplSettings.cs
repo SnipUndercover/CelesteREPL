@@ -9,6 +9,7 @@ public class CelesteReplSettings : EverestModuleSettings
     [SettingIgnore]
     public List<string> CSharpScriptHistory { get; set; } = [];
 
+    [SettingRange(10, 1000, largeRange: true)]
     public int HistorySize { get; set; } = 100;
 
     [SettingIgnore]
