@@ -293,16 +293,39 @@ public partial class CSharpRepl : Tab
 
     public override bool CanBeVisible() => true;
 
+    private float inputTextHeight = 110f;
+    private bool resizingText;
+    private float lastMouseY;
+
     public override void Render(Level? _)
     {
         bool runScript = ImGui.InputTextMultiline(
             " Script",
             ref ScriptText,
             0x10000,
-            -Vector2.UnitX,
+            new Vector2(-1f, inputTextHeight),
             InputTextFlags,
             TextInputDelegate
         );
+
+        // input text field resizing
+        ImGui.Selectable("", false, ImGuiSelectableFlags.None, new Vector2(0f, 2f));
+        if (ImGui.IsItemClicked())
+        {
+            resizingText = true;
+        }
+        else if (!ImGui.IsMouseDown(ImGuiMouseButton.Left))
+        {
+            resizingText = false;
+        }
+        // Imgui.GetMouseDragDelta() exists, but doing this manually is more responsive
+        float currentMouseY = ImGui.GetMousePos().Y;
+        if (resizingText)
+        {
+            inputTextHeight += currentMouseY - lastMouseY;
+            inputTextHeight = Math.Max(inputTextHeight, 10f);
+        }
+        lastMouseY = currentMouseY;
 
         StringBuilder builder = new();
         foreach (ReplSubmission submission in Submissions)
