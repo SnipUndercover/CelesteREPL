@@ -293,9 +293,10 @@ public partial class CSharpRepl : Tab
 
     public override bool CanBeVisible() => true;
 
-    private float inputTextHeight = 110f;
-    private bool resizingText;
-    private float lastMouseY;
+    private const float DefaultInputTextHeight = 110;
+    private float InputTextHeight = DefaultInputTextHeight;
+    private bool IsResizingText;
+    private float LastMouseY;
 
     public override void Render(Level? _)
     {
@@ -303,7 +304,7 @@ public partial class CSharpRepl : Tab
             " Script",
             ref ScriptText,
             0x10000,
-            new Vector2(-1f, inputTextHeight),
+            new Vector2(-1f, InputTextHeight),
             InputTextFlags,
             TextInputDelegate
         );
@@ -311,21 +312,18 @@ public partial class CSharpRepl : Tab
         // input text field resizing
         ImGui.Selectable("", false, ImGuiSelectableFlags.None, new Vector2(0f, 2f));
         if (ImGui.IsItemClicked())
-        {
-            resizingText = true;
-        }
+            IsResizingText = true;
         else if (!ImGui.IsMouseDown(ImGuiMouseButton.Left))
-        {
-            resizingText = false;
-        }
-        // Imgui.GetMouseDragDelta() exists, but doing this manually is more responsive
+            IsResizingText = false;
+
+        // ImGui.GetMouseDragDelta() exists, but doing this manually is more responsive
         float currentMouseY = ImGui.GetMousePos().Y;
-        if (resizingText)
+        if (IsResizingText)
         {
-            inputTextHeight += currentMouseY - lastMouseY;
-            inputTextHeight = Math.Max(inputTextHeight, 10f);
+            InputTextHeight += currentMouseY - LastMouseY;
+            InputTextHeight = Math.Max(InputTextHeight, 10f);
         }
-        lastMouseY = currentMouseY;
+        LastMouseY = currentMouseY;
 
         StringBuilder builder = new();
         foreach (ReplSubmission submission in Submissions)
