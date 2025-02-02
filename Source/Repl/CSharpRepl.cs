@@ -41,25 +41,29 @@ public partial class CSharpRepl : Tab
     private Script? CSharpReplScript;
     private ScriptState? CSharpReplScriptState;
 
+    private const string HelpText =
+        """
+        Welcome to the C# REPL!
+        
+        You can enter C# code in the text field above. Pressing Enter creates a new line. Ctrl+Enter executes the code.
+        Ctrl+Up/Down allows you to go back and forth in submission history. By default, 100 past snippets are saved.
+        The amount can be changed in settings.
+
+        The field below is the evaluation history. It shows past script executions and their return values.
+        If the snippet failed to compile or threw an exception, it will be logged as well.
+
+        The REPL also supports "Magic Commands". They perform non-standard actions, like clearing the submission history,
+          resetting the REPL state, and more.
+        Enter #commands for a list of all commands.
+
+        Several helper functions are available in the static "Repl" class, included in the bootloader script.
+        To see them, run #bootloader.
+        
+        If you need to see this text again, run #help.
+        """;
+
     public readonly List<ReplSubmission> Submissions = [
-        new(
-            "Welcome to the C# REPL!",
-            """
-            You can enter C# code in the text field above. Pressing Enter creates a new line. Ctrl+Enter executes the code.
-            Ctrl+Up/Down allows you to go back and forth in submission history. By default, 100 past snippets are saved.
-            The amount can be changed in settings.
-
-            The field below is the evaluation history. It shows past script executions and their return values.
-            If the snippet failed to compile or threw an exception, it will be logged as well.
-
-            The REPL also supports "Magic Commands". They perform non-standard actions, like clearing the submission history,
-              resetting the REPL state, and more.
-            Enter #help for a list of all commands.
-
-            Several helper functions are available in the static "Repl" class, included in the bootloader script.
-            To see them, run #bootloader.
-            """,
-            ReplSubmission.State.Success),
+        new("Hello, world!", HelpText, ReplSubmission.State.Success),
     ];
 
     private string ScriptText = "";
@@ -457,6 +461,7 @@ public partial class CSharpRepl : Tab
     internal void RegisterMagicActions()
     {
         RegisterMagicAction(new HelpMagicAction(this));
+        RegisterMagicAction(new CommandListMagicAction(this));
         RegisterMagicAction(new ClearOutputMagicAction(this));
         RegisterMagicAction(new ClearHistoryMagicAction(this));
         RegisterMagicAction(new ResetReplStateMagicAction(this));
@@ -536,6 +541,19 @@ public partial class CSharpRepl : Tab
     {
         public override string Command => "help";
         public override string Description => "Prints the help.";
+
+        public override bool Run(string _)
+        {
+            Repl.LogOutput(HelpText);
+
+            return true;
+        }
+    }
+
+    public sealed class CommandListMagicAction(CSharpRepl repl) : MagicAction(repl)
+    {
+        public override string Command => "commands";
+        public override string Description => "Prints a list of commands.";
 
         public override bool Run(string _)
         {
