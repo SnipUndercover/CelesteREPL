@@ -94,7 +94,9 @@ public class CelesteReplModule : EverestModule
     {
         // this is only called on boot after all mods' Load(), but before Initialize()
         // if we do stuff in initialize, we hit a deadlock - promise not to call the cops
-        CSharpReplTab.InitializeRepl();
+        if (!CSharpReplTab.Initialized)
+            // don't spam the logs lol
+            CSharpReplTab.InitializeRepl();
 
         return false;
     }
