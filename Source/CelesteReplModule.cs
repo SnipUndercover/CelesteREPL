@@ -54,6 +54,8 @@ public class CelesteReplModule : EverestModule
         );
         MainMappingUtils.Tabs.Add(CSharpReplTab = new CSharpRepl());
 
+        Everest.Events.Celeste.OnExiting += SaveSettings;
+
         // load immediately if we're hot reloaded
         if ((bool)f_Everest_Initialized.GetValue(null)!)
             CSharpReplTab.InitializeRepl();
@@ -63,6 +65,8 @@ public class CelesteReplModule : EverestModule
     {
         ILHook_CoreAssemblyLoaderImpl_LoadContext_Ctor?.Dispose();
         MainMappingUtils.Tabs.Remove(CSharpReplTab);
+
+        Everest.Events.Celeste.OnExiting -= SaveSettings;
 
         // make sure to save our history
         SaveSettings();
