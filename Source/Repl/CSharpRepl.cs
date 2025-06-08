@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Celeste.Mod.Helpers;
 using Celeste.Mod.MappingUtils.ImGuiHandlers;
 using ImGuiNET;
+using JetBrains.Annotations;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
@@ -153,6 +154,7 @@ public partial class CSharpRepl : Tab
 
     private static readonly Regex MagicActionRegex = GenerateMagicActionRegex();
 
+    [LanguageInjection("C#")]
     private const string Bootloader =
         """
         public static class Repl

@@ -38,6 +38,7 @@
         <PackageReference Include="ImGui.NET" Version="1.91.0.1" />
         <Reference Include="$(CelestePrefix)\Mods\Cache\MappingUtils.MappingUtils.dll" Private="false"/>
         <Reference Include="$(CelestePrefix)\Mods\Cache\ImGuiHelper.ImGuiHelper.dll" Private="false"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
     </ItemGroup>
 
     <ItemGroup>
