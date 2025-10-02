@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <AssemblyName>CelesteRepl</AssemblyName>
         <RootNamespace>Celeste.Mod.CelesteRepl</RootNamespace>
         <LangVersion>latest</LangVersion>
@@ -18,7 +18,7 @@
     </ItemDefinitionGroup>
 
     <ItemGroup>
-        <PackageReference Include="MonoMod.RuntimeDetour" Version="25.0.2" PrivateAssets="all" ExcludeAssets="runtime" />
+        <PackageReference Include="MonoMod.RuntimeDetour" Version="25.2.3" PrivateAssets="all" ExcludeAssets="runtime" />
         <PackageReference Include="MonoMod.Patcher" Version="25.0.0-prerelease.2" />
         <PackageReference Include="CelesteAnalyzer" Version="*" />
         <PackageReference Include="YamlDotNet" Version="16.2.0" />
@@ -38,7 +38,7 @@
         <PackageReference Include="ImGui.NET" Version="1.91.0.1" />
         <Reference Include="$(CelestePrefix)\Mods\Cache\MappingUtils.MappingUtils.dll" Private="false"/>
         <Reference Include="$(CelestePrefix)\Mods\Cache\ImGuiHelper.ImGuiHelper.dll" Private="false"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" />
     </ItemGroup>
 
     <ItemGroup>
