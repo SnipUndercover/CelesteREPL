@@ -21,7 +21,6 @@
         <PackageReference Include="MonoMod.RuntimeDetour" Version="25.2.3" PrivateAssets="all" ExcludeAssets="runtime" />
         <PackageReference Include="MonoMod.Patcher" Version="25.0.0-prerelease.2" />
         <PackageReference Include="CelesteAnalyzer" Version="*" />
-        <PackageReference Include="YamlDotNet" Version="16.2.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -29,6 +28,7 @@
         <Reference Include="$(CelestePrefix)\MMHOOK_Celeste.dll" Private="false" />
         <Reference Include="$(CelestePrefix)\FNA.dll" Private="false" />
         <Reference Include="$(CelestePrefix)\NLua.dll" Private="false" />
+        <Reference Include="$(CelestePrefix)\YamlDotNet.dll" Private="false" />
     </ItemGroup>
     
     <ItemGroup>
